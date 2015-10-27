@@ -149,19 +149,21 @@ class Game
   end
 
   def prompt
-    row, col = -1, -1
-
-    until valid_guess(row, col)
+    row, col = nil, nil
+    loop do
       row, col = current_player.get_prompt @board
+      break if valid_guess row, col
+      puts "invalid guess"
     end
 
     @board.grid[row][col]
   end
 
   def valid_guess row, col
-    return false if (0...@board.grid.length).include?(row)
-    return false if (0...@board.grid.length).include?(col)
-    return !@board.grid[row][col].face_up
+    return false unless (0...@board.grid.length).include?(row)
+    return false unless (0...@board.grid.length).include?(col)
+    return false if @board.grid[row][col].face_up
+    true
   end
 
 
@@ -171,25 +173,26 @@ class Game
 
 
   def make_guess
-    render
+    current_player.look @board
     guess1 = prompt
     guess1.reveal
 
-    render
+    current_player.look @board
     guess2 = prompt
     guess2.reveal
 
 
     #match
     unless guess1 == guess2
-      render
-      puts "you missed"
+      current_player.look @board
+      puts "#{current_player.name} missed (press enter to continue)"
       guess1.hide
       guess2.hide
+      gets
+
     else
-      player.add_match
+      current_player.add_match
     end
-    gets
     system("clear")
   end
 
@@ -197,9 +200,13 @@ end
 
 class Player
   attr_accessor :name, :points
-  def initialize
+  def initialize name
     @name = name
     @points = 0
+  end
+
+  def look board
+    board.render
   end
 
   def get_prompt board
@@ -212,5 +219,73 @@ class Player
   end
 end
 
-class ComputerPlayer < Player
-end
+
+##THIS DOES NOT WORK
+
+# class ComputerPlayer < Player
+#   @locations = []
+#   @guess = []
+#   @next_guess = []
+#
+#   def get_prompt board
+#     if @next_guess == []
+#       @guess = check_for_match
+#       @guess
+#     else
+#       final_guess = @next_guess
+#       @next_guess = []
+#       final_guess
+#     end
+#   end
+#
+#   def check_for_match
+#     @locations.each_with_index do |target, idx|
+#       @locations[(idx+1)..-1].each_with_index do |check, idx2|
+#         card1 = target[0]
+#         pos1 = target[1]
+#         card2 = check[0]
+#         pos2 = check[1]
+#
+#         if card1.face_value == card2.face_value
+#
+#           if pos1 == @guess
+#             @next_guess = pos2
+#           elsif pos2 == @guess
+#             @next_guess = pos1
+#           else
+#
+#           end
+#           return @next_guess
+#         end
+#       end
+#     end
+#     return random_guess
+#   end
+#
+#   def random_guess
+#     possible_guesses = []
+#     grid = @board.grid
+#     grid.each_with_index do |_, row|
+#       row.each_with_index do |card, col|
+#         possible_guesses << [row, col] unless card.face_up
+#       end
+#     end
+#     possible_guesses.shuffle.first
+#   end
+#
+#
+#   def look board
+#     @board = board
+#     @board.grid.each_with_index do |_, row|
+#       row.each_with_index do |card, col|
+#         @locations << [card.face_value, [row, col]]
+#       end
+#     end
+#     @locations.uniq!
+#   end
+#
+# end
+#
+# def reload
+#   load 'MemoryPuzzle.rb'
+# end
