@@ -20,9 +20,17 @@ class Game
 
   end
 
-  # def over?
-  #
-  # end
+  def over?
+    board.won?
+    board.lost?
+  end
+  def won?
+    @board.every_bomb_flagged?
+    @board.every_non_bomb_revealed?
+  end
+  def lost?
+    @board[@move].reveal == :bomb
+  end
 
   def get_input
     puts "enter your move (x,y)"

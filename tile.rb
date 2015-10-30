@@ -1,4 +1,5 @@
 class Tile
+  attr_accessor :is_bomb
   def initialize
 
   end
@@ -18,7 +19,6 @@ class Tile
     "+"
   end
   def face_value
-    return "*" if condition
-    return "_" if condition
+    "F"
   end
 end
