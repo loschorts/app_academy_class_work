@@ -50,5 +50,5 @@ def reload
 end
 
 if __FILE__ == $0
-Board.new
+p Board.new.grid.sample.sample
 end

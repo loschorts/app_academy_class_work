@@ -21,9 +21,9 @@ class Tile
     neighbors.select{|neighbor| neighbor.is_bomb}.count
   end
 
-  def inspect
-    value
-  end
+  # def inspect
+  #   "the inspect value is #{self}"
+  # end
   def face_value
     @revealed ? @value : "+"
   end

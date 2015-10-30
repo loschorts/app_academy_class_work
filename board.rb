@@ -11,12 +11,15 @@ class Board
     count = 0
     until count == bombs
       spot = @grid.sample.sample
+      p spot
+      gets
       unless spot.is_bomb
         spot.set_as_bomb
         spot.neighbors.each { |tile| tile.value += 1 unless tile.is_bomb}
       end
       count += 1
     end
+    'seeded!'
   end
 
   def render
