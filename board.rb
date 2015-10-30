@@ -1,9 +1,9 @@
+require 'byebug'
 class Board
   attr_reader :grid
   def initialize size = 10, bombs = 5
     @grid = Array.new(size) {Array.new(size) {Tile.new(self)}}
     seed_bombs(bombs)
-    scan_and_set_all_neighbors
   end
 
   def seed_bombs bombs
@@ -12,13 +12,14 @@ class Board
       spot = @grid.sample.sample
       unless spot.is_bomb
         spot.set_as_bomb
-        spot.neighbors.each.value += 1
+        spot.neighbors.each { |tile| tile.value += 1 unless tile.is_bomb}
       end
       count += 1
     end
   end
 
   def render
+    puts
     @grid.each do |row|
       p row.map(&:face_value)
     end
@@ -32,8 +33,8 @@ class Board
     @grid[row][column] = value
   end
 
-  def valid_pos? pos
-    return false if self[pos].nil?
+  def valid_pos?(pos)
+    return false if self[*pos].nil?
     true
   end
 
@@ -60,7 +61,8 @@ class Board
 
   def get_neighbors_of tile
     row, col = find_tile_location tile
-    [
+    # debugger
+    neighbor_positions =[
       [row-1, col-1],
       [row-1, col],
       [row-1, col+1],
@@ -69,16 +71,25 @@ class Board
       [row+1, col-1],
       [row+1, col],
       [row+1, col+1],
-    ].select{|pos| pos.valid_pos?}
+    ].select{|pos| valid_pos?(pos)}
+
+    neighbor_positions.map { |position| self[*position]}
   end
 
   def find_tile_location tile
-    @grid.each_with_index do |_,row|
-      row.each_with_index do |other_tile, col|
+    @grid.each_with_index do |line,row|
+      line.each_with_index do |other_tile, col|
         return [row, col] if tile == other_tile
       end
     end
     raise 'tile not found!'
   end
+
+  def god_view
+    @grid.each do |row|
+      p row.map(&:value)
+    end
+  end
+
 
 end

@@ -49,3 +49,7 @@ end
 def reload
   load __FILE__
 end
+
+if __FILE__ == $0
+Board.new
+end
