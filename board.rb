@@ -20,10 +20,13 @@ class Board
   end
 
   def render
-    puts
     @grid.each do |row|
-      p row.map(&:face_value)
+      row.each do |tile|
+        print tile.face_value.to_s + " "
+      end
+      puts
     end
+    nil
   end
 
   def [] (row, column)
@@ -77,7 +80,6 @@ class Board
     ]
 
     neighbor_positions.select!{|pos| valid_pos?(pos)}
-    p "NEIGHBOR POSITIONS: ", neighbor_positions
     neighbor_positions.map { |position| self[*position]}
 
   end
@@ -95,6 +97,10 @@ class Board
     @grid.each do |row|
       p row.map(&:value)
     end
+    nil
+  end
+  def inspect
+    'im a board!'
   end
 
 
