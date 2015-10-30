@@ -38,7 +38,7 @@ class Game
   end
 
   def evaluate
-    if board.valid_move?(@move)
+    if board.valid_pos?(@move)
       board.process_move(@move)
     else
       puts "invalid move"
