@@ -1,5 +1,5 @@
-require_relative 'board.rb'
-require_relative 'tile.rb'
+load './board.rb'
+load './tile.rb'
 
 class Game
 
@@ -36,4 +36,8 @@ class Game
       puts "invalid move"
     end
   end
+end
+
+def reload
+  load __FILE__
 end
