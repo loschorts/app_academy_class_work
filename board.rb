@@ -2,8 +2,9 @@ require 'byebug'
 class Board
   attr_reader :grid
   def initialize size = 10, bombs = 5
-    @grid = Array.new(size) {Array.new(size) {Tile.new(self)}}
-    seed_bombs(bombs)
+    @size = size
+    @grid = Array.new(size) {Array.new(size) {Tile.new(0, self)}}
+    #seed_bombs(bombs)
   end
 
   def seed_bombs bombs
@@ -34,7 +35,9 @@ class Board
   end
 
   def valid_pos?(pos)
-    return false if self[*pos].nil?
+    row, col = pos
+    return false unless row.between?(0, @size)
+    return false unless col.between?(0, @size)
     true
   end
 
@@ -71,9 +74,12 @@ class Board
       [row+1, col-1],
       [row+1, col],
       [row+1, col+1],
-    ].select{|pos| valid_pos?(pos)}
+    ]
 
+    neighbor_positions.select!{|pos| valid_pos?(pos)}
+    p "NEIGHBOR POSITIONS: ", neighbor_positions
     neighbor_positions.map { |position| self[*position]}
+
   end
 
   def find_tile_location tile

@@ -1,6 +1,6 @@
 class Tile
   attr_accessor :is_bomb, :revealed, :value
-  def initialize value = 0, board
+  def initialize value, board
     @board = board
     @value = value
     @is_bomb = false
@@ -21,9 +21,9 @@ class Tile
     neighbors.select{|neighbor| neighbor.is_bomb}.count
   end
 
-  # def inspect
-  #   face_value
-  # end
+  def inspect
+    value
+  end
   def face_value
     @revealed ? @value : "+"
   end
