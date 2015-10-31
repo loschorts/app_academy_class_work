@@ -1,3 +1,4 @@
+
 class Tile
   attr_accessor :is_bomb, :revealed, :value
   def initialize value, board
@@ -24,6 +25,7 @@ class Tile
   # def inspect
   #   "the inspect value is #{self}"
   # end
+
   def face_value
     @revealed ? @value : "+"
   end
