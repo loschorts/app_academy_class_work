@@ -21,8 +21,8 @@ def diag_row_empty? start_pos, end_pos
     col_idx += col_step
     squares_between << [row_idx, col_idx]
   end
-  squares_between.all? {|square| board[square].nil?}
-  #squares_between #comment this line in and above line out to test
+  #squares_between.all? {|square| board[square].nil?}
+  squares_between #comment this line in and above line out to test
 end
 
-p diag_row_empty? [0,0], [0,8]
+p diag_row_empty? [0,0], [0,0]
