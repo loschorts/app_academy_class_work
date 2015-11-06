@@ -72,9 +72,18 @@ class ResizingIntSet
   end
 
   def insert(num)
+    if @count >= @store.length
+      resize!
+    end
+    index = num % @store.count
+    @store[index] << num
+    @count += 1
   end
 
   def remove(num)
+    index = num % @store.count
+    @store[index].delete(num)
+    @count -= 1
   end
 
   def include?(num)
@@ -93,5 +102,11 @@ class ResizingIntSet
   end
 
   def resize!
+    new_array = Array.new(@store.length * 2) {Array.new}
+    @store.reduce(&:+).each do |el|
+      index = el % new_array.length
+      new_array[index] << el
+    end
+    @store = new_array
   end
 end
