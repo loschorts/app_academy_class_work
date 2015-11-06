@@ -78,6 +78,8 @@ class ResizingIntSet
   end
 
   def include?(num)
+    index = num % @store.count
+    @store[index].include?(num)
   end
 
   private
