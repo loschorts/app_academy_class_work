@@ -1,23 +1,29 @@
 class MaxIntSet
   def initialize(max)
     @store = Array.new(max, false)
+    @max = max
   end
 
   def insert(num)
     validate!(num)
+    return false if @store[num]
+    @store[num] = true
   end
 
   def remove(num)
     validate!(num)
+    @store[num] = false
   end
 
   def include?(num)
     validate!(num)
+    @store[num]
   end
 
   private
 
   def is_valid?(num)
+    num < @max && num >= 0
   end
 
   def validate!(num)
@@ -32,16 +38,22 @@ class IntSet
   end
 
   def insert(num)
+    @store[index(num)] << num
   end
 
   def remove(num)
+    @store[index(num)].delete(num)
   end
 
   def include?(num)
+    @store[index(num)].include?(num)
   end
 
   private
 
+  def index(num)
+    index = num % @store.length
+  end
   def [](num)
     # optional but useful; return the bucket corresponding to `num`
   end
