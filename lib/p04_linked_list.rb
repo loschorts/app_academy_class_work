@@ -52,8 +52,13 @@ class LinkedList
   end
 
   def insert(key, val)
-    @tail.next = Link.new(key, val, nil)
-    @tail = @tail.next
+    if @head.key == nil
+      @head = Link.new(key, val, nil)
+      @tail =  @head
+    else
+      @tail.next = Link.new(key, val, nil)
+      @tail = @tail.next
+    end
   end
 
   def remove(key)
