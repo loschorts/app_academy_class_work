@@ -9,6 +9,9 @@ class Link
   def to_s
     "#{@key}, #{@val}"
   end
+  def inspect
+    "Link: #{@key}, #{@val}"
+  end
 end
 
 class LinkedList
@@ -18,6 +21,14 @@ class LinkedList
   def initialize
     @head = Link.new
     @tail = @head
+  end
+
+  def inspect
+    view = []
+    each do |link|
+      view << link
+    end
+    view
   end
 
   def [](i)
