@@ -6,6 +6,37 @@ class ShortenedUrl < ActiveRecord::Base
     primary_key: :id,
     class_name: "User"
 
+  has_many :visits,
+    foreign_key: :shortened_url_id,
+    primary_key: :id,
+    class_name: "Visit"
+
+  has_many :visitors,
+    through: :visits,
+    source: :visitor
+
+  has_many :unique_visitors,
+    Proc.new { distinct },
+    through: :visits,
+    source: :visitor
+
+  has_many :taggings,
+    foreign_key: :shortened_url_id,
+    primary_key: :id,
+    class_name: "Tagging"
+
+  def num_clicks
+    Visit.all.select {|v| v.shortened_url_id == self.id}.count
+  end
+
+  def num_uniques
+    unique_visitors.count
+  end
+
+  def num_recent_uniques
+    Visit.select(:created_at).select{|v| v.created_at < 10.minutes.ago }
+  end
+
   def self.random_code
     code = nil
     loop do
