@@ -1,6 +1,9 @@
 class ShortenedUrl < ActiveRecord::Base
   require 'securerandom'
 
+  validates :long_url, length: {maximum: 1024}
+  validates :validates_user_status
+
   belongs_to :submitter,
     foreign_key: :submitted_id,
     primary_key: :id,
@@ -48,6 +51,13 @@ class ShortenedUrl < ActiveRecord::Base
 
   def self.create_for_user_and_long_url! user, long_url
     self.new(short_url: self.random_code, long_url: long_url, submitted_id: user.id).save!
+  end
+  private
+  def validates_user_status
+    user = User.find(submitted_id)
+    if user.premium || user.submitted_urls.count < 5
+      error[:base] << "Too many URLS for a Non-Premium User"
+    end
   end
 
 end
