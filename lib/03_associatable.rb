@@ -68,7 +68,11 @@ module Associatable
   end
 
   def has_many(name, options = {})
+    options = HasManyOptions.new(name, options)
 
+    fk = options.foreign_key
+    cn = options.class_name
+    pk = options.primary_key
   end
 
   def assoc_options
