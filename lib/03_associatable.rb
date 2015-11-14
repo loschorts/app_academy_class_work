@@ -60,7 +60,7 @@ module Associatable
     pk = options.primary_key
 
     define_method name do
-      return nil if self.send(fk)
+      return nil unless self.send(fk)
       owner = cn.constantize
       owner.find(self.send(fk))
     end
