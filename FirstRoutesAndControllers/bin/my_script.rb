@@ -9,9 +9,6 @@ def get_index
     path: '/users/'
   ).to_s
 
-
-
-
   puts RestClient.get(url)
 end
 
