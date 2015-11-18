@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
     SecureRandom::urlsafe_base64(16)
   end
 
-  def password=
+  def password=(password)
     self.password_digest = BCrypt::Password.create(password)
   end
 
