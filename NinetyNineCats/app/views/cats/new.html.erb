@@ -1,40 +1,4 @@
 <h1> Create a New Cat </h1>
-<form action="<%=cats_url%>" method="post">
-
-<label for="cat_name">Cat Name</label>
-<input name="cat[name]" id="cat_name" type="text">
-
-<br>
-
-<label for="cat_sex">Cat Sex</label>
-<div>
-  <input name="cat[sex]" id="cat_sex_m" type="radio" value="M">
-  <label for="cat_sex_m">Male</label>
-
-  <input name="cat[sex]" id="cat_sex_f" type="radio" value="F">
-  <label for="cat_sex_f">Female</label>
-</div>
-
-<br>
-
-<label for="cat_color">Color</label>
-<select name="cat[color]">
-  <option selected="selected"></option>
-  <%Cat::CAT_COLORS.each do |color| %>
-  <option value="<%=color%>"><%=color.capitalize%></option>
-  <%end%>
-</select>
-
-<br>
-
-<label for="cat_birth_date">Birth Date</label>
-<input name="cat[birth_date]" id="cat_birth_date" type="date">
-
-<br>
-
-<label for="cat_description">Description</label>
-<textarea name="cat[description]" id="cat_description"></textarea>
-
-<br>
-
-  <input type="submit" value="Build my cat!">
+<form action="<%=cats_url%>" method="POST">
+  
+<%=render "form"%>
