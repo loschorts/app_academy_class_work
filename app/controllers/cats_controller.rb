@@ -43,6 +43,11 @@ class CatsController < ApplicationController
   private
 
   def verify_owners_cats
+    unless current_user
+      redirect_to cats_url
+      return
+    end
+    
     @cat = current_user.cats.find(params[:id])
     if @cat.nil?
       redirect_to cats_url
