@@ -1,0 +1,8 @@
+<h1>Edit Name and/or Password</h1>
+
+<%= flash[:errors] %>
+
+<form action="<%= user_url(@user) %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <%= render "shared/auth_token" %>
+  <%= render "shared/form", user: @user %>
