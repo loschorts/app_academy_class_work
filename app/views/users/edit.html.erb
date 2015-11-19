@@ -1,0 +1,5 @@
+<h2>Edit Your Profile! Hooray!</h2>
+
+<form action="<%=user_path(@user)%>" method="POST">
+  <input type="hidden" name="_method" value="PATCH">
+<%= render "form" %>
