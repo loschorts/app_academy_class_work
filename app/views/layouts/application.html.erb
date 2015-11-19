@@ -8,6 +8,19 @@
 </head>
 <body>
 
+<% if current_user %>
+  <h3> <%= current_user.username %> </h3>
+  <form action="/session" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="Log Out">
+  </form>
+<% else %>
+  <form action="/session/new" method="get">
+  <input type="submit" value="Log In">
+  </form>
+<% end %>
+<br>
+
 <%= yield %>
 
 </body>
