@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: cats
+#
+#  id          :integer          not null, primary key
+#  birth_date  :date             not null
+#  color       :string(255)      not null
+#  name        :string(255)      not null
+#  sex         :string(1)        not null
+#  description :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#  user_id     :integer
+#
+
 require 'action_view'
 
 class Cat < ActiveRecord::Base
@@ -11,11 +26,14 @@ class Cat < ActiveRecord::Base
     dependent: :destroy
   )
 
+  belongs_to :user
+
   validates(
     :birth_date,
     :color,
     :name,
     :sex,
+    :user_id,
     presence: true
   )
 
