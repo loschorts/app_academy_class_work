@@ -7,6 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<p>
+    <%= render "layouts/login_logout_bar" %>
+</p>
+<p>
+  <%= flash.now[:errors] %>
+</p>
 
 <%= yield %>
 
