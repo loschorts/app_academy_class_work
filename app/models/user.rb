@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :notes
   include UsersHelper
   attr_accessor :password
   validates :email, :password_digest, :session_token, presence: true
@@ -11,7 +12,7 @@ class User < ActiveRecord::Base
   end
 
   def login!
-    
+
   end
 
   def is_password? password

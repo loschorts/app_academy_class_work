@@ -1,0 +1,9 @@
+<h1>Lame Albums</h1>
+<% if params[:band_id] %>
+<h2>by <%= Band.find(params[:band_id].name) %></h2>
+<% end %>
+<ul>
+  <% @albums.sort_by(&:name).each do |band| %>
+  <li> <%=link_to band.name, band_path(band)%> </li>
+  <%end%>
+</ul>

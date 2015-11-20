@@ -1,0 +1,12 @@
+<h1> <%= @track.name %> </h1>
+<p>
+  <%= "***BONUS TRACK***" if @track.bonus %>
+</p>
+<%= render "shared/destroy_button", object: @track%>
+
+<% @notes.each do |note| %>
+<p>
+  <%= note.user.email %> said: <br><br>
+  <%= note.note %>
+</p>
+<% end %>

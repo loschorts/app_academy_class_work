@@ -8,12 +8,19 @@
 </head>
 <body>
 
-<% if current_user %>
-  <%= "logged in as: #{current_user.email}" %>
-  <%= render "shared/logout_button" %>
- <%else%>
-  <%=render "shared/login_button"%>
-<%end%>
+<p>
+  <% if current_user %>
+    <%= "logged in as: #{current_user.email}" %>
+    <%= render "shared/logout_button" %>
+   <%else%>
+    <%=render "shared/login_button"%>
+  <%end%>
+</p>
+
+<p>
+  <%= flash[:errors] %>
+</p>
+
 
 
 <%= yield %>

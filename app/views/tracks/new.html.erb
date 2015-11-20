@@ -1,0 +1,30 @@
+<h1>Create a New Track</h1>
+<form class="" action="<%= tracks_url %>" method="post">
+  <%= render "shared/auth_token" %>
+  <p>
+    <label for="name" name="track[name]">Track Name</label>
+    <input type="text" name="track[name]" value="">
+  </p>
+
+  <p>
+    <label for="album">Select Album</label>
+    <select id="album" name="track[album_id]">
+      <option value = "">select album</option>
+      <%= Album.select(:id, :name).each do |album| %>
+      <option value ="<%= album.id %>"> <%= album.name %></option>
+      <% end %>
+    </select>
+  </p>
+
+  <p>
+    <label for="bonus">Bonus?</label>
+    <label for="bonus">Yes</label>
+      <input type="radio" id="bonus" name="track[bonus]" value="True">
+      <label id="album_recording_type" for="live">No</label>
+        <input type="radio" id="bonus" name="track[bonus]" value="False" checked>
+  </p>
+
+  <p>
+    <input type="submit">
+  </p>
+</form>
