@@ -7,9 +7,16 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.destroy_all
+Sub.destroy_all
 
 User.create!(username: "a", password: "password")
 
-100.times do
-  User.create!(username: Faker::Internet.user_name, password: "password")
+5.times do
+  user = User.create(username: Faker::Internet.user_name, password: "password")
+  puts user
+end
+
+5.times do
+  sub = Sub.create!(title: Faker::Lorem.word, description: Faker::Lorem.sentence(3), moderator_id: User.find_by(username: "a").id)
+  puts sub
 end

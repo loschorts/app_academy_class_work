@@ -1,4 +1,7 @@
 class SubsController < ApplicationController
+
+  before_action :ensure_moderator, only: [:edit, :update, :destroy]
+
   def new
     @sub = Sub.new
   end
@@ -40,5 +43,13 @@ class SubsController < ApplicationController
 
   def sub_params
     params.require(:sub).permit(:title, :description)
+  end
+
+  def ensure_moderator
+    ssub = Sub.find(params[:id])
+    unless current_user.id == ssub.moderator_id
+      flash[:errors] = "YOU ARE NOT A MODERATOR"
+      redirect_to subs_url
+    end
   end
 end
