@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :ensure_author, only: [:edit, :update, :destroy]
+
   def new
     @post = Post.new
   end
@@ -27,9 +28,11 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-
-    if @post.update(post_params)
-      redirect_to sub_url(@post.sub)
+    if params[:post][:sub_ids] == [""]
+      @post.destroy
+      redirect_to subs_url
+    elsif @post.update(post_params)
+      redirect_to sub_url(@post.subs.find(params[:sub_id]))
     else
       flash.now[:errors] = @post.errors.full_messages
       render :edit
@@ -47,7 +50,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :url, :content, :sub_id)
+    params.require(:post).permit(:title, :url, :content, sub_ids: [])
   end
 
   def ensure_author
@@ -57,4 +60,5 @@ class PostsController < ApplicationController
       redirect_to sub_post_url(post.sub, post)
     end
   end
+
 end

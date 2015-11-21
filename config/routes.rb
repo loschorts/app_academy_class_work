@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   resource :session
 
   resources :subs, except: [:destroy] do
-    resources :posts
+    resources :posts, except: [:index]
   end
 end
