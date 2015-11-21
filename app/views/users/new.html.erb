@@ -2,11 +2,11 @@
 
 <form action="<%= users_url %>" method="post">
   <%= auth_token %>
-  <label for="username_id">Username</label>
-  <input type="text" name="user[username]" value="<%= @user.username %>" id="username_id">
+  <label for="username-id">Username</label>
+  <input type="text" name="user[username]" value="<%= @user.username %>" id="username-id">
 
-  <label for="password_id">Password</label>
-  <input type="password" name="user[password]" value="<%= @user.password %>" id="password_id">
+  <label for="password-id">Password</label>
+  <input type="password" name="user[password]" id="password-id">
 
   <input type="submit" value="Submit">
 </form>

@@ -20,3 +20,13 @@ end
   sub = Sub.create!(title: Faker::Lorem.word, description: Faker::Lorem.sentence(3), moderator_id: User.find_by(username: "a").id)
   puts sub
 end
+
+Sub.all.each do |sub|
+  5.times do
+    Post.create(title: Faker::Lorem.sentence,
+    url: Faker::Internet.url,
+    content: Faker::Lorem.paragraph,
+    sub_id: sub.id,
+    author_id: User.find_by(username: "a").id)
+  end
+end

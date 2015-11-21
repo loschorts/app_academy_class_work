@@ -1,1 +1,12 @@
-<%= @sub.inspect %>
+<h3><%= @sub.title %></h3>
+
+<ul>
+  <% @sub.posts.each do |post| %>
+    <li>
+      <%= render "posts/show", post: post %>
+      <%= link_to "Edit", edit_sub_post_url(@sub, post) if current_user.id == post.author_id %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Back to Subs#Index", subs_url %>
