@@ -1,28 +1,47 @@
-<h1>Sign up!</h1>
+<div class="row">
+  <div class="col-xs-4">
+    <div class="col-xs-offset-1">
 
-<ul>
-  <% @user.errors.full_messages.each do |err_msg| %>
-    <li><%= err_msg %></li>
-  <% end %>
-</ul>
+      <h1>Sign up!</h1>
 
-<form action="/user" method="POST">
-  <input
-    type="hidden"
-    name="authenticity_token"
-    value="<%= form_authenticity_token %>">
-  
-  <label for="user_username">Username</label>
-  <input
-    type="text"
-    name="user[username]"
-    id="user_username"
-    value="<%= @user.username %>">
-  <br>
+      <ul>
+        <% @user.errors.full_messages.each do |err_msg| %>
+          <li><%= err_msg %></li>
+        <% end %>
+      </ul>
 
-  <label for="user_password">Password</label>
-  <input type="password" name="user[password]" id="user_password">
-  <br>
 
-  <input type="submit" value="Create User!">
-</form>
+      <form action="/user" method="POST">
+        <input
+          type="hidden"
+          name="authenticity_token"
+          value="<%= form_authenticity_token %>">
+        <div class="form-group">
+          <label for="user_username">Username</label>
+          <input
+            class="form-control"
+            type="text"
+            name="user[username]"
+            id="user_username"
+            value="<%= @user.username %>">
+          <br>
+        </div>
+
+      <div class="form-group">
+        <label for="user_password">Password</label>
+        <input class="form-control"
+          type="password"
+          name="user[password]"
+          id="user_password">
+        <br>
+      </div>
+
+        <input type="button"
+          class="btn-primary"
+          class="btn"
+          value="Create User!">
+      </form>
+
+    </div>
+  </div>
+</div>
