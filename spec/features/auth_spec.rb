@@ -1,9 +1,10 @@
 require 'spec_helper'
 require 'rails_helper'
 
-let(:test_user) { FactoryGirl.create(:user) }
 
 feature "the signup process" do
+let(:test_user) { FactoryGirl.create(:user) }
+
   before :each do
     visit "/users/new"
   end
@@ -25,11 +26,18 @@ feature "the signup process" do
 end
 
 feature "logging in" do
+let(:test_user) { FactoryGirl.create(:user) }
+
   before :each do
-
+    visit new_session_url
+    fill_in "Username", with: test_user.username
+    fill_in "Password", with: test_user.password
+    click_button "Sign In"
   end
-  it "shows username on the homepage after login" do
 
+  it "shows username on the homepage after login" do
+    expect(page).to have_content(test_user.username)
+  end
 
 end
 
