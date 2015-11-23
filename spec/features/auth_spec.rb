@@ -1,8 +1,9 @@
 require 'spec_helper'
 require 'rails_helper'
 
+let(:test_user) { FactoryGirl.create(:user) }
+
 feature "the signup process" do
-  let(:test_user) { FactoryGirl.create(:user) }
   before :each do
     visit "/users/new"
   end
@@ -24,8 +25,11 @@ feature "the signup process" do
 end
 
 feature "logging in" do
+  before :each do
 
-  it "shows username on the homepage after login"
+  end
+  it "shows username on the homepage after login" do
+
 
 end
 
