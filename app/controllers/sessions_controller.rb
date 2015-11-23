@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     )
     if user
       login!(user)
-      redirect_to new_user_url
+      redirect_to goals_url
     else
       redirect_to new_session_url
     end
