@@ -55,8 +55,13 @@ describe "GoalsApp" do
       expect(page).not_to have_content(test_user.username)
     end
 
-    it "doesn't show username on the homepage after logout"
-
+    it "doesn't show username on the homepage after logout" do
+      visit new_session_url
+      fill_in_user_info
+      click_button "Sign In"
+      click_button "Log Out"
+      expect(page).not_to have_content(test_user.username)
+    end
   end
 
 end
