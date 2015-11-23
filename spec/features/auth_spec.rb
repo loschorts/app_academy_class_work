@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'rails_helper'
-describe GoalsApp do
+
+describe "GoalsApp" do
   let(:test_user) { FactoryGirl.create(:user) }
 
   def fill_in_user_info
@@ -9,7 +10,7 @@ describe GoalsApp do
   end
 
   feature "the signup process" do
-  let(:test_user) { FactoryGirl.create(:user) }
+  # let(:test_user) { FactoryGirl.create(:user) }
 
     before :each do
       visit "/users/new"
@@ -23,8 +24,8 @@ describe GoalsApp do
     feature "signing up a user" do
 
       it "shows username on the homepage after signup" do
-        fill_in "Username", with: test_user.username
-        fill_in "Password", with: test_user.password
+        # fill_in "Username", with: test_user.username
+        # fill_in "Password", with: test_user.password
         click_button "Sign Up"
         expect(page).to have_content(test_user.username)
       end
@@ -33,7 +34,7 @@ describe GoalsApp do
   end
 
   feature "logging in" do
-  let(:test_user) { FactoryGirl.create(:user) }
+  # let(:test_user) { FactoryGirl.create(:user) }
 
     before :each do
       visit new_session_url
@@ -50,7 +51,8 @@ describe GoalsApp do
   feature "logging out" do
 
     it "begins with logged out state" do
-
+      visit new_session_url
+      expect(page).not_to have_content(test_user.username)
     end
 
     it "doesn't show username on the homepage after logout"
