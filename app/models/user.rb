@@ -1,7 +1,10 @@
 class User < ActiveRecord::Base
 
   has_many :goals
-  has_many :comments
+  has_many :comments, as: :commentable
+  has_many :comments,
+   foreign_key: :author_id,
+   class_name: "Comment"
 
   attr_reader :password
   validates :username, :password_digest, :session_token, presence: true
