@@ -4,8 +4,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by_credentials(
-    params[:user][:username],
+    user = User.find_by_credentials(username,
     params[:user][:password]
     )
     if user
@@ -21,5 +20,9 @@ class SessionsController < ApplicationController
     redirect_to new_session_url
   end
 
+  private
+  def username
+    params[:user][:username]
+  end
 
 end

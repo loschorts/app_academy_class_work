@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   has_many :goals
+  has_many :comments
 
   attr_reader :password
   validates :username, :password_digest, :session_token, presence: true
