@@ -3,3 +3,10 @@ Array.prototype.myEach = function(fun){
     fun(this[i]);
   }
 }
+
+function lame (thing){
+  console.log(thing + "whoa")
+}
+
+
+module.exports = Array.prototype.myEach;
