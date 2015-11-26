@@ -1,7 +1,8 @@
 Array.prototype.uniq = function () {
   var uniques = [];
   this.forEach(function(element){
-      var match = false;
+    var match = false;
+
     uniques.forEach(function(uniqElement){
       if (uniqElement === element){
         match = true;

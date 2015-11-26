@@ -1,15 +1,16 @@
 Array.prototype.two_sum = function(){
   var locations = [];
-  var originalArray = this
-  originalArray.forEach(function(element1, index1){
-    originalArray.forEach(function(element2, index2) {
+
+  this.forEach(function(element1, index1){
+    this.forEach(function(element2, index2) {
+
       if (index2 > index1) {
         if ((element1 + element2) === 0) {
           locations.push([index1, index2]);
         }
       }
     })
-  })
+  }.bind(this))
   return locations;
 }
 
