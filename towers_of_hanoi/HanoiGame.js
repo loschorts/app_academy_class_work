@@ -54,9 +54,8 @@ HanoiGame.prototype.promptMove = function(callback, completionCallback){
 
   reader.question("Enter Start Tower: ", function(firstTower){
     reader.question("Enter End Tower: ", function(endTower){
-      game.input_received = true;
-
       callback.call(game, firstTower, endTower);
+      
       if (game.isWon()) {
         completionCallback();
       } else {
@@ -68,10 +67,6 @@ HanoiGame.prototype.promptMove = function(callback, completionCallback){
 
 HanoiGame.prototype.run = function(completionCallback) {
   this.promptMove(this.move, completionCallback);
-
-  if (this.isWon()) {
-    completionCallback();
-  }
 }
 
 var game = new HanoiGame();
