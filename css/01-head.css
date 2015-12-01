@@ -1,12 +1,12 @@
 body{
   font-family: Roboto;
-  font-weight: 700;
+  font-weight: 300;
   font-size: 16px;
 }
 
 header {
   display: block;
-  background: red;
+  background: #f00;
   width: 100%;
   color: #fff;
 }
@@ -23,7 +23,9 @@ header nav{
   border-top-style: none;
   border-bottom-style: none;
   margin-left: -1px;
+  font-weight: 400;
   float: left;
+  position: relative;
 }
 
 .nav_els:hover {
@@ -31,7 +33,7 @@ header nav{
 }
 
 header h1 {
-  font-weight: bold;
+  font-weight: 700;
 }
 
 header ul{

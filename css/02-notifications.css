@@ -1,0 +1,45 @@
+.badge {
+  background: #000;
+  padding: 1px 5px;
+  font-size: 14px;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+.notice_list {
+  display: none;
+  position: absolute;
+}
+
+.nav_els:hover .notice_list {
+  display: list-item;
+  left: 0px;
+  top: 100%;
+}
+
+.notice_list li {
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #000;
+  padding: 8px 20px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.notice_list li:hover {
+  background: #ccc;
+}
+
+.nav_els:hover .badge {
+  background: #f00;
+}
+
+.notice_list :last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+header {
+  position: relative;
+  z-index: 1;
+}
