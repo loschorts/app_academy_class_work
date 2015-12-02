@@ -1,0 +1,32 @@
+footer {
+  display: block;
+  width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fff;
+  position: relative;
+  border: 1px solid #aaa;
+  margin-top: -1px;
+  color: #aaa;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+footer ul {
+  float: right;
+}
+
+footer p {
+  float: left;
+  padding: 15px;
+}
+
+footer ul li {
+  float: left;
+  padding: 15px;
+  position: relative;
+}
+
+.footer-link li:hover {
+  color: #000;
+}
