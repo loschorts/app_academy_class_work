@@ -1,0 +1,9 @@
+.online {
+  position: absolute;
+  background: limegreen;
+  margin-top: 20px;
+  margin-left: -43px;
+  padding: 5px 50px;
+  transform: rotate(-45deg);
+  overflow: hidden;
+}
