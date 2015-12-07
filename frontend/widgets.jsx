@@ -12,11 +12,20 @@ var nameList = [
 var Widgets = React.createClass({
   getInitialState: function(){
     return {
-      nameList: nameList
+      nameList: nameList,
+      searchString: ""
     };},
+
+  typingHandler: function (e) {
+    this.setState ({ searchString: e.target.value});
+  },
+
   render: function () {
     return(
-      <AutoComplete nameList = {this.state.nameList}/>
+      <AutoComplete nameList = {this.state.nameList}
+        value={this.state.searchString}
+        typingCallback={this.typingHandler}
+        placeholder="type your name"/>
     );
   }
 });
