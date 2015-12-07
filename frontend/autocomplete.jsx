@@ -4,13 +4,17 @@ var AutoComplete = React.createClass({
   showNames: function () {
     var names = [];
     var searchVal = this.props.value;
-    this.props.nameList.map(function (name) {
+    var clickCallback = this.props.clickCallback;
+
+    this.props.nameList.map(function (name, idx) {
       if (name.match(searchVal)){
-        names.push(name);
+        names.push(
+          <li
+          onClick={clickCallback}
+          key={idx}>           
+            {name}
+        </li>);
       }
-    });
-    names = names.map (function (name, idx) {
-      return (<li key={idx}> {name} </li>);
     });
 
     return <ul>{names}</ul>;
@@ -18,10 +22,10 @@ var AutoComplete = React.createClass({
 
   inputBox: function () {
     return <input
-      className="name"
       type="text"
-      onChange={this.props.typingCallback}
-            ></input>;
+      value={this.props.value}
+      placeholder={this.props.placeholder}
+      onChange={this.props.typingCallback}/>;
   },
 
   render: function () {
