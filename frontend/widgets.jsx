@@ -2,7 +2,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 var AutoComplete = require('./autocomplete.jsx'),
-    WeatherClock = require('./WeatherClock.jsx');
+    WeatherClock = require('./WeatherClock.jsx'),
+    Tabs = require('./tabs.jsx');
 
 var nameList = [
   "Bobby Tables",
@@ -10,7 +11,7 @@ var nameList = [
   "Ken Tran"
 ];
 
-var tabs = [
+var tabContent = [
   {title: "Title 1", content: "Content 1Content 1Content 1Content 1Content 1Content 1Content 1Content 1Content 1Content 1Content 1Content 1"},
   {title: "Title 2", content: "Content 2Content 2Content 2Content 2Content 2Content 2Content 2Content 2Content 2Content 2Content 2Content 2"},
   {title: "Title 3", content: "Content 3Content 3Content 3Content 3Content 3Content 3Content 3Content 3Content 3Content 3Content 3Content 3"},
@@ -22,7 +23,6 @@ var tabs = [
 var Widgets = React.createClass({
   getInitialState: function(){
     return {
-      nameList: nameList,
       searchString: ""
     };},
 
@@ -40,12 +40,15 @@ var Widgets = React.createClass({
     return(
       <div>
         <AutoComplete
-          nameList = {this.state.nameList}
+          nameList = {nameList}
           value={this.state.searchString}
           typingCallback={this.typingHandler}
           clickCallback={this.nameClickHandler}
           placeholder={this.state.searchString}/>
         <WeatherClock/>
+        <Tabs
+          tabSelected = {this.state.tabSelected}
+          content = {tabContent}/>
       </div>
     );
   }
