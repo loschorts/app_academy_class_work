@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+5.times do
+  Todo.create(title: Faker::Lorem.words(3) , body: Faker::Lorem.paragraph(1))
+end
