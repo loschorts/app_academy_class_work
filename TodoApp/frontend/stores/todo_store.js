@@ -22,7 +22,7 @@ var TodoStore = {
   },
 
   all: function(){
-    return _todos;
+    return _todos.slice();
   },
 
   fetch: function(){
@@ -41,7 +41,7 @@ var TodoStore = {
 
   destroy: function(id){
     var todo = TodoStore.find(id);
-    if( typeof todo !== "undefined"){
+    if (typeof todo !== "undefined"){
       $.ajax({
         url: '/api/todos/'+id,
         type: 'DELETE',
@@ -68,7 +68,7 @@ var TodoStore = {
       todo.done = !todo.done;
       $.ajax({
         url:'/api/todos/'+id,
-        data: {todo: todo},
+        data: {todo: {done: todo.done}},
         type: 'PATCH',
         success: function(data){
           TodoStore.changed();
