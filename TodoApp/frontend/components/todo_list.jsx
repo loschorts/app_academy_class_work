@@ -11,6 +11,7 @@ var TodoList = React.createClass({
     var self = this;
     TodoStore.fetch();
     TodoStore.addChangedHandler(function(){
+      console.log("ran change");
       self.setState(
         {todos: TodoStore.all()}
       );

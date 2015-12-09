@@ -42,10 +42,11 @@ var TodoStore = {
   destroy: function(id){
     var todo = TodoStore.find(id);
     if (typeof todo !== "undefined"){
+      // debugger
       $.ajax({
         url: '/api/todos/'+id,
         type: 'DELETE',
-        success: function(){
+        success: function(result){
           var todoIdx = _todos.indexOf(todo);
           _todos.splice(todoIdx, 1);
           TodoStore.changed();
@@ -78,5 +79,6 @@ var TodoStore = {
   }
 
 };
+window.ts = TodoStore;
 
 module.exports = TodoStore;

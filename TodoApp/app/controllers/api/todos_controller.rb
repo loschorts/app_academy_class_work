@@ -19,8 +19,8 @@ class Api::TodosController < ApplicationController
 
   def destroy
     puts "hello"
-    Todo.destroy(params[:id])
-    render json: "success"
+    todo = Todo.destroy(params[:id])
+    render json: todo
   end
 
   def todo_params
