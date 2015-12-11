@@ -3,7 +3,6 @@ var BenchConstants = require('../constants/bench_constants');
 
 ApiActions = {
   receiveAll: function(benches){
-  	console.log("benches", benches);
     AppDispatcher.dispatch({
       actionType: BenchConstants.BENCHES_RECEIVED,
       benches: benches
