@@ -7,8 +7,7 @@ var _benches = [];
 var BenchStore = new Store(AppDispatcher);
 
 BenchStore.all = function () {
-	console.log(_benches);
-return _benches.slice();
+	return _benches.slice();
 };
 
 BenchStore.resetBenches = function(benches){
@@ -17,7 +16,6 @@ BenchStore.resetBenches = function(benches){
 };
 
 BenchStore.__onDispatch = function (payload) {
-	console.log("benchstore dispatched");
 	switch(payload.actionType) {
 		case BenchConstants.BENCHES_RECEIVED:
 			var result = BenchStore.resetBenches(payload.benches);
