@@ -9,4 +9,4 @@ return _benches.slice();
 
 window.BenchStore = BenchStore;
 
-module.exports = BenchStore
+module.exports = BenchStore;
