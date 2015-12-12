@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDom = require('react-dom');
 var BenchStore = require('../stores/bench_store');
+var ApiUtil = require('../util/api_util');
+var MapActions = require('../actions/map_actions');
 
 var _markers = [];
 
@@ -12,10 +14,31 @@ var Map = React.createClass({
        		zoom: 13
       	};
       	this.map = new google.maps.Map(map, mapOptions);
+        this.listenForMove();
       	BenchStore.addListener(this._createMarkers);
+    },
+    listenForMove: function(){
+      var self = this;
+      google.maps.event.addListener(this.map, 'idle', function(){
+        _markers = [];
+        var bounds = self.map.getBounds();
+        var nE = {
+          lat: bounds.getNorthEast().lat(),
+          lng: bounds.getNorthEast().lng()
+          };
+        var sW = {
+          lat: bounds.getSouthWest().lat(),
+          lng: bounds.getSouthWest().lng()
+          };
+        ApiUtil.fetchBenches({
+          northEast: nE,
+          southWest: sW
+        });
+      });
     },
     _createMarkers: function(){
     	myMap = this.map;
+
     	BenchStore.all().forEach(function(bench){
     		var marker = new google.maps.Marker({
     			position : {lat: bench.lat, lng: bench.long},
@@ -23,6 +46,9 @@ var Map = React.createClass({
     			title: bench.description
     		});
     		marker.setMap(myMap);
+        marker.addListener('click', function(){
+          console.log(marker.title);
+        });
     		_markers.push(marker);
     	});
     },

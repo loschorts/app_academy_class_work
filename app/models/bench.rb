@@ -3,10 +3,10 @@ class Bench < ActiveRecord::Base
 
 	def self.in_bounds(bounds)
 		Bench.all.select do |bench|
-			bench.lat < bounds["northEast"]["lat"] &&
-			bench.lat > bounds["southWest"]["lat"] &&
-			bench.long < bounds["northEast"]["long"] &&
-			bench.long > bounds["southWest"]["long"]
+			bench.lat < bounds["northEast"]["lat"].to_f &&
+			bench.lat > bounds["southWest"]["lat"].to_f &&
+			bench.long < bounds["northEast"]["lng"].to_f &&
+			bench.long > bounds["southWest"]["lng"].to_f
 		end
 	end
 end

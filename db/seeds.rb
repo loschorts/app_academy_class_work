@@ -8,10 +8,10 @@
 Bench.destroy_all
 
 def rand_spot
-	lat_min = 37.775051
-	lat_max = 37.776679
-	long_min = -122.480055
-	long_max = -122.442602
+	lat_min = 37.70208714293695
+	lat_max = 37.83778136175211
+	long_min = -122.3635888671875
+	long_max = -122.53525024414063
 
 	lat = Random.new.rand * (lat_max-lat_min) + lat_min
 	long = Random.new.rand * (long_max-long_min) + long_min

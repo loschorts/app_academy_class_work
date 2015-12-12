@@ -6909,9 +6909,10 @@
 	var ApiActions = __webpack_require__(2);
 	
 	ApiUtil = {
-			fetchBenches: function () {
+			fetchBenches: function (bounds) {
 					$.ajax({
-							url: 'api/benches',
+							url: 'api/benches?',
+							data: { bounds: bounds },
 							type: 'GET',
 							success: function (benches) {
 									ApiActions.receiveAll(benches);
@@ -26431,7 +26432,7 @@
 		},
 		componentDidMount: function () {
 			BenchStore.addListener(this._updateBenches);
-			ApiUtil.fetchBenches();
+			// ApiUtil.fetchBenches();
 		},
 		render: function () {
 			var benches = this.state.benches.slice();
@@ -26445,6 +26446,8 @@
 			return React.createElement(
 				'ul',
 				null,
+				'Count: ',
+				result.length,
 				result
 			);
 		}
@@ -26459,6 +26462,8 @@
 	var React = __webpack_require__(28);
 	var ReactDom = __webpack_require__(184);
 	var BenchStore = __webpack_require__(10);
+	var ApiUtil = __webpack_require__(27);
+	var MapActions = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../actions/map_actions\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	var _markers = [];
 	
@@ -26472,10 +26477,31 @@
 	      zoom: 13
 	    };
 	    this.map = new google.maps.Map(map, mapOptions);
+	    this.listenForMove();
 	    BenchStore.addListener(this._createMarkers);
+	  },
+	  listenForMove: function () {
+	    var self = this;
+	    google.maps.event.addListener(this.map, 'idle', function () {
+	      _markers = [];
+	      var bounds = self.map.getBounds();
+	      var nE = {
+	        lat: bounds.getNorthEast().lat(),
+	        lng: bounds.getNorthEast().lng()
+	      };
+	      var sW = {
+	        lat: bounds.getSouthWest().lat(),
+	        lng: bounds.getSouthWest().lng()
+	      };
+	      ApiUtil.fetchBenches({
+	        northEast: nE,
+	        southWest: sW
+	      });
+	    });
 	  },
 	  _createMarkers: function () {
 	    myMap = this.map;
+	
 	    BenchStore.all().forEach(function (bench) {
 	      var marker = new google.maps.Marker({
 	        position: { lat: bench.lat, lng: bench.long },
@@ -26483,6 +26509,9 @@
 	        title: bench.description
 	      });
 	      marker.setMap(myMap);
+	      marker.addListener('click', function () {
+	        console.log(marker.title);
+	      });
 	      _markers.push(marker);
 	    });
 	  },

@@ -11,14 +11,14 @@ var Index = React.createClass({
 	},
 	componentDidMount: function(){
 		BenchStore.addListener(this._updateBenches);
-		ApiUtil.fetchBenches();
+		// ApiUtil.fetchBenches();
 	},
 	render: function(){
 		var benches = this.state.benches.slice();
 		var result = benches.map(function(bench, idx){
 			return <li key={idx}>{JSON.stringify(bench)}</li>;
 		});
-		return <ul>{result}</ul>;
+		return <ul>Count: {result.length}{result}</ul>;
 	}
 });
 
