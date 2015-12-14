@@ -10,6 +10,16 @@ ApiUtil = {
 			ApiActions.receiveAll(benches);
 		}
     });
+  },
+  createBench: function(bench){
+  	$.ajax({
+  		url: 'api/benches',
+  		type: 'POST',
+  		data: {bench: bench},
+  		success: function(bench){
+  			ApiActions.receiveNew(bench);
+  		}
+  	});
   }
 };
 

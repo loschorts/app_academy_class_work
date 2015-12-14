@@ -15,10 +15,18 @@ BenchStore.resetBenches = function(benches){
 	BenchStore.__emitChange();
 };
 
+BenchStore.addBench = function(bench){
+	_benches.push(bench);
+	BenchStore.__emitChange();
+};
+
 BenchStore.__onDispatch = function (payload) {
 	switch(payload.actionType) {
 		case BenchConstants.BENCHES_RECEIVED:
 			var result = BenchStore.resetBenches(payload.benches);
+			break;
+		case BenchConstants.NEW_BENCH:
+			var result = BenchStore.addBench(payload.bench);
 			break;
 	}
 };
