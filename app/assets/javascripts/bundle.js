@@ -19708,10 +19708,10 @@
 	BenchStore.__onDispatch = function (payload) {
 		switch (payload.actionType) {
 			case BenchConstants.BENCHES_RECEIVED:
-				var result = BenchStore.resetBenches(payload.benches);
+				BenchStore.resetBenches(payload.benches);
 				break;
 			case BenchConstants.NEW_BENCH:
-				var result = BenchStore.addBench(payload.bench);
+				BenchStore.addBench(payload.bench);
 				break;
 		}
 	};
@@ -26526,15 +26526,28 @@
 	var React = __webpack_require__(1);
 	var Map = __webpack_require__(185);
 	var Index = __webpack_require__(181);
+	var FilterStore = __webpack_require__(400);
 	
 	var Search = React.createClass({
 		displayName: 'Search',
 	
+		getInitialState: function () {
+			return { filters: FilterStore.all() };
+		},
+		updateFilters: function () {
+			this.setState({ filters: FilterStore.all() });
+		},
+		componentDidMount: function () {
+			FilterStore.addListener(this.updateFilters);
+		},
+		clickMapHandler: function (coords) {
+			this.props.history.pushState(null, 'benches/new', coords);
+		},
 		render: function () {
 			return React.createElement(
 				'div',
 				null,
-				React.createElement(Map, null),
+				React.createElement(Map, { clickMapHandler: this.clickMapHandler }),
 				React.createElement(Index, null)
 			);
 		}
@@ -26549,13 +26562,18 @@
 	var React = __webpack_require__(1);
 	var ReactDom = __webpack_require__(158);
 	var BenchStore = __webpack_require__(159);
+	var FilterStore = __webpack_require__(400);
 	var ApiUtil = __webpack_require__(182);
+	var FilterActions = __webpack_require__(398);
 	
 	var _markers = [];
 	
 	var Map = React.createClass({
 	  displayName: 'Map',
 	
+	  getInitialState: function () {
+	    return { filters: [] };
+	  },
 	  componentDidMount: function () {
 	    var map = ReactDom.findDOMNode(this.refs.map);
 	    var mapOptions = {
@@ -26566,6 +26584,7 @@
 	    this.listenForMove();
 	    BenchStore.addListener(this._createMarkers);
 	  },
+	  updateFilters: function () {},
 	  listenForMove: function () {
 	    var self = this;
 	    google.maps.event.addListener(this.map, 'idle', function () {
@@ -26578,10 +26597,17 @@
 	        lat: bounds.getSouthWest().lat(),
 	        lng: bounds.getSouthWest().lng()
 	      };
+	      FilterActions.updateParams(self.state.filters);
 	      ApiUtil.fetchBenches({
 	        northEast: nE,
 	        southWest: sW
 	      });
+	    });
+	    google.maps.event.addListener(this.map, 'click', function (e) {
+	      var lat = e.latLng.lat();
+	      var lng = e.latLng.lng();
+	      var coords = { lat: lat, long: lng };
+	      self.props.clickMapHandler(coords);
 	    });
 	  },
 	  _createMarkers: function () {
@@ -50905,7 +50931,10 @@
 	
 		mixins: [LinkedStateMixin],
 		getInitialState: function () {
-			return { lat: 0, long: 0, seating: 0, description: "Enter Description" };
+			return { lat: 0, long: 0, seating: 0, description: "" };
+		},
+		componentWillReceiveProps: function () {
+			this.setState(this.props.location.query);
 		},
 		createBench: function () {
 			ApiUtil.createBench(this.state);
@@ -51180,6 +51209,67 @@
 	};
 	
 	module.exports = ReactStateSetters;
+
+/***/ },
+/* 398 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(177);
+	var FilterConstants = __webpack_require__(399);
+	
+	FilterActions = {};
+	
+	FilterActions.updateParams = function (filters) {
+		console.log("Filter Actions");
+		AppDispatcher.dispatch({
+			actionType: FilterConstants.FILTERS_UPDATED,
+			filters: filters
+		});
+	};
+	
+	module.exports = FilterActions;
+
+/***/ },
+/* 399 */
+/***/ function(module, exports) {
+
+	FilterConstants = {
+		FILTERS_UPDATED: 'FILTERS_UPDATED'
+	};
+	
+	module.exports = FilterConstants;
+
+/***/ },
+/* 400 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(160).Store;
+	var AppDispatcher = __webpack_require__(177);
+	var FilterConstants = __webpack_require__(399);
+	
+	var FilterStore = new Store(AppDispatcher);
+	
+	var _filters = [];
+	
+	FilterStore.__onDispatch = function (payload) {
+		switch (payload.actionType) {
+			case FilterConstants.FILTERS_UPDATED:
+				FilterStore.updateFilters(payload.filters);
+				break;
+		}
+	};
+	
+	FilterStore.updateFilters = function (filters) {
+		console.log("updating filters");
+		_filters = filters;
+	};
+	
+	FilterStore.all = function () {
+		return _filters.slice();
+	};
+	
+	module.exports = FilterStore;
+	//params are stored as POJOS: {name: "name", values: "values"}
 
 /***/ }
 /******/ ]);

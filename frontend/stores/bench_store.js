@@ -23,10 +23,10 @@ BenchStore.addBench = function(bench){
 BenchStore.__onDispatch = function (payload) {
 	switch(payload.actionType) {
 		case BenchConstants.BENCHES_RECEIVED:
-			var result = BenchStore.resetBenches(payload.benches);
+			BenchStore.resetBenches(payload.benches);
 			break;
 		case BenchConstants.NEW_BENCH:
-			var result = BenchStore.addBench(payload.bench);
+			BenchStore.addBench(payload.bench);
 			break;
 	}
 };

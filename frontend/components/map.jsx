@@ -1,11 +1,16 @@
 var React = require('react');
 var ReactDom = require('react-dom');
 var BenchStore = require('../stores/bench_store');
+var FilterStore = require('../stores/filter_store');
 var ApiUtil = require('../util/api_util');
+var FilterActions = require('../actions/filter_actions');
 
 var _markers = [];
 
 var Map = React.createClass({
+  getInitialState: function(){
+    return {filters: []};
+  },
 	componentDidMount: function(){
 		var map = ReactDom.findDOMNode(this.refs.map);
       	var mapOptions = {
@@ -15,6 +20,8 @@ var Map = React.createClass({
       	this.map = new google.maps.Map(map, mapOptions);
         this.listenForMove();
       	BenchStore.addListener(this._createMarkers);
+    },
+    updateFilters: function(){
     },
     listenForMove: function(){
       var self = this;
@@ -28,11 +35,20 @@ var Map = React.createClass({
           lat: bounds.getSouthWest().lat(),
           lng: bounds.getSouthWest().lng()
           };
+        FilterActions.updateParams(self.state.filters);
         ApiUtil.fetchBenches({
           northEast: nE,
           southWest: sW
         });
       });
+      google.maps.event.addListener(this.map, 'click', function(e){
+        var lat = e.latLng.lat();
+        var lng = e.latLng.lng();
+        var coords = {lat: lat, long: lng};
+        self.props.clickMapHandler(coords);
+      });
+
+
     },
     _createMarkers: function(){
       var self = this;

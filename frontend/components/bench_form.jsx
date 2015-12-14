@@ -5,7 +5,10 @@ var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var BenchForm = React.createClass({
 	mixins: [LinkedStateMixin],
 	getInitialState: function(){
-		return {lat: 0, long: 0, seating: 0, description: "Enter Description"};
+		return {lat: 0, long: 0, seating: 0, description: ""};
+	},
+	componentWillReceiveProps: function(){
+		this.setState(this.props.location.query);
 	},
 	createBench: function(){
 		ApiUtil.createBench(this.state);
