@@ -23,4 +23,15 @@ BenchStore.__onDispatch = function (payload) {
 	}
 };
 
+BenchStore.benchAt = function(marker) {
+	var found = false;
+	_benches.forEach(function(bench){
+		if (bench.id === marker.benchId){
+			found = true;
+			return;
+		}
+	});
+	return found;
+};
+
 module.exports = BenchStore;
