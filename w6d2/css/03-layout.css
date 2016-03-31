@@ -1,0 +1,38 @@
+.content {
+  min-height: 200px;
+  width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  border: 1px solid #aaa;
+}
+
+.content-sidebar {
+  background: #fff;
+  /*left: 0;*/
+  width: 270px;
+  min-height: 200px;
+  float: left;
+}
+
+.content-main {
+  background: #fff;
+  width: 70%;
+  min-height: 200px;
+  float: right;
+}
+
+.content:before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 270px;
+  width: 1px;
+  background: #aaa;
+  top: 200px;
+  bottom: 0;
+}
+
+body {
+  background: #eee;
+}
