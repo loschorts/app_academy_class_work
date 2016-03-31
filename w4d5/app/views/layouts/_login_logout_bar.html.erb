@@ -1,0 +1,11 @@
+<%= "CURRENT USER: " + current_user.username if current_user %>
+<% unless current_user %>
+  <%= link_to "login", new_session_url%>
+<%else%>
+  <%= button_to "logout", session_url, method: :delete %>
+  <!-- <form action="<%= session_url %>" method="post">
+    <%= auth_token %>
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="logout">
+  </form> -->
+<%end%>
