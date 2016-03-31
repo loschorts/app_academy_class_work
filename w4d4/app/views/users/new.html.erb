@@ -1,0 +1,7 @@
+<h1>Sign Up</h1>
+
+<form action="<%= users_path %>" method="post">
+
+  <%= render "shared/auth_token" %>
+
+  <%= render "shared/form", user: @user %>

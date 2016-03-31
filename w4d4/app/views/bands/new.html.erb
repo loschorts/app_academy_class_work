@@ -1,0 +1,6 @@
+<form action="<%= bands_url %>" method="post">
+  <%=render "shared/auth_token"%>
+  <label for="name">Name: </label>
+  <input type="text" id="name" name="band[name]" value="<%=@band.name%>">
+  <input type="submit">
+</form>

@@ -1,0 +1,5 @@
+<h1>Login</h1>
+
+<form action="<%=session_path%>" method="post">
+  <%= render "shared/auth_token" %>
+  <%= render "shared/form", user: User.new %>

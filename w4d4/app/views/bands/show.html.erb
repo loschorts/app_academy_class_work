@@ -1,0 +1,12 @@
+<!-- DEPRACATED!!!! USE SHARED/INDEX
+
+<h1> <%= @band.name %> </h1>
+
+<hX>Albums</hX>
+<ul>
+  <% @band.albums.each do |album| %>
+  <li><%= link_to album.name, album_path(album) %></li>
+  <% end %>
+</ul>
+
+<%= render "shared/destroy_button", object: @band %>

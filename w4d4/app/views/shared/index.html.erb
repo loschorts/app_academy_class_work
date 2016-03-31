@@ -1,0 +1,19 @@
+<h1>Lame <%=@collection.first.class%>s <%= "for '#{@main.name}'" unless @main.nil? %></h1>
+
+
+<% if @main.class == Album %>
+  <%= "Recorded:"  %>
+  <%= @main.recorded %>
+<% end %>
+<ul>
+  <% @collection.each do |item| %>
+  <li> <%=link_to item.name, url_for(item)%> </li>
+  <%end%>
+</ul>
+
+<% if @parent.nil? %>
+<%= link_to "Back to All Bands", bands_url %>
+<% else %>
+<li>back to <%= link_to @parent.name, url_for(@parent) %> </li>
+<% end %>
+<%= render "shared/destroy_button", object: @main %>
