@@ -1,0 +1,8 @@
+<h2> <%=  @user.username %> </h2>
+<br>
+<ol>
+  <% @user.attributes.each do |k, v| %>
+    <%next if k == "password_digest" %>
+  <li> <%= k %>: <%= v %> </li>
+  <% end %>
+</ol>
